@@ -1,0 +1,64 @@
+doctype html
+
+html
+    head
+        link(href="/bower_components/bootstrap/dist/css/bootstrap.min.css", type="text/css", rel="stylesheet")
+        link(href="/bower_components/angular-ui-select/dist/select.min.css", type="text/css", rel="stylesheet")
+        link(href="css/main.css", type="text/css", rel="stylesheet")
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/bower_components/bootstrap/dist/js/bootstrap.min.js")
+        script(src="/bower_components/lodash/lodash.min.js")
+        script(src="/bower_components/angular/angular.min.js")
+        script(src="/bower_components/angular-resource/angular-resource.min.js")
+        script(src="/bower_components/angular-ui-select/dist/select.min.js")
+        script(src="/bower_components/angular-ui-router/release/angular-ui-router.min.js")
+        script(src="/socket.io/socket.io.js")
+        script(src="App.js")
+        script(src="directives/RcInputModify.js")
+        script(src="directives/RcModalWindow.js")
+        script(src="services/TemplateService.js")
+        script(src="services/MakeRequestService.js")
+        script(src="services/EncoderService.js")
+        script(src="services/SendRequestService.js")
+
+        script(src="controllers/RequestListCtrl.js")
+        script(src="controllers/NewRequestCtrl.js")
+        script(src="controllers/FuncParamCtrl.js")
+        script(src="controllers/IteratorParamCtrl.js")
+        script(src="controllers/TemplateLoaderCtrl.js")
+        script(src="controllers/TemplateGeneratorCtrl.js")
+        script(src="controllers/NewRequestTemplateCtrl.js")
+        script(src="controllers/NewRequestAssociationCtrl.js")
+        script(src="controllers/CreateTestBlockCtrl.js")
+        script(src="controllers/CreateTestCtrl.js")
+        script(src="controllers/HeadersParamsCtrl.js")
+        script(src="services/TestEntityService.js")
+        script(src="services/TestBlockService.js")
+        script(src="services/ExpressionParser.js")
+
+        //functions similar to runscope test suite
+        script(src="controllers/ApiTestsCtrl.js")
+    body(ng-app="App")
+        .container-fluid    
+            .row
+                .navbar.navbar-inverse.col-md-12
+                    .container-fluid
+                        ul.nav.navbar-nav.nav-pills
+                            li.active(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="requests") Home
+                            li(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="requestTemplates") Templates
+                            li(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="apiTests") Tests
+                            li(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="jsonTools") JSON Tools
+                            li(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="notification") Notifications
+                            li(ui-sref-active="{active: 'active'}")
+                                a(ui-sref="integration") Integration
+            .row(ui-view)
+            .row(ui-view="newForm")
+                
+                            
+                            
+

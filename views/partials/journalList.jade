@@ -1,0 +1,23 @@
+.panel.panel-info
+    .panel-heading
+        Журнал
+    .panel-body
+        ul.list-group.container-fluid
+            li.row.list-group-item(ng-repeat="record in journal")
+                span.col-md-1
+                    input(type="checkbox", ng-model="record.selected", rc-select-one="journalRecordIsSelected")
+                span.col-md-2 {{record.host}}
+                span.col-md-2 {{record.url}}
+                spam.col-md-2 {{record.counter}}
+                span.col-md-2(ng-if="record.status >= 200 && record.status < 300")
+                    .label.label-success {{record.status}}
+                span.col-md-2(ng-if="record.status >= 300 && record.status < 400")
+                    .label.label-info {{record.status}}
+                span.col-md-2(ng-if="record.status >= 400 && record.status < 500")
+                    .label.label-warning {{record.status}}
+                span.col-md-2(ng-if="record.status >= 500 && record.status < 600")
+                    .label.label-danger {{record.status}}
+                span.col-md-2 {{request.lastSend}}
+    .panel-footer
+        .btn.btn-warning(ng-click="clearJournal()")
+            | Clear

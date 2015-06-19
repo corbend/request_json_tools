@@ -1,0 +1,31 @@
+{
+  "name": "requestPanel",
+  "version": "0.0.0",
+  "authors": [
+    "nemtarev <thinkandwin5000@gmail.com>"
+  ],
+  "keywords": [
+    "mini-panel",
+    "for",
+    "sending",
+    "requests",
+    "via",
+    "nodejs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "angular-ui-router": "~0.2.13",
+    "angular-ui-select": "~0.9.5",
+    "jade": "~1.8.2",
+    "angular-resource": "~1.3.8",
+    "lodash": "~3.9.3"
+  }
+}

@@ -1,0 +1,14 @@
+.container-fluid
+    .row
+        form.col-md-12.form-horizontal(name="createTestForm")
+            .form-group
+                label.control-label.col-md-4
+                    Имя теста
+                .col-md-8
+                    input.form-control(type="text", ng-model="test.name")
+            .form-group
+                label.control-label.col-md-4
+                    Выражение
+                .col-md-8
+                    input.form-control(type="text", ng-model="test.expression")
+                

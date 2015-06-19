@@ -1,0 +1,13 @@
+.modal(fade="", ng-controller="#{controller}", tabindex="-1", role="dialog", aria-labelledby="modalLabel", aria-hidden="true")
+    .modal-dialog(rc-modal-window="open")
+        .modal-content
+            .modal-header
+                .modal-title
+                   = title
+            .modal-body
+                div(ng-include="'#{content}'")
+            .modal-footer
+                button.btn.btn-success(rc-modal-confirm="ok()")
+                    Сохранить
+                button.btn.btn-danger(rc-modal-close="cancel()")
+                    Отменить

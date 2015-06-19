@@ -1,0 +1,21 @@
+.panel.panel-success(ng-controller="headersParamsCtrl")
+    .panel-heading
+        Параметры запроса
+    .panel-body.container-fluid
+        .row
+            .col-md-2
+                .btn.btn-success(ng-click="addHeaderParam()")
+                    i.glyphicon.glyphicon-plus
+            .col-md-2
+                select(ng-model="predefineHeaderParam", ng-options="opt for opt in headersType")
+        .row
+            .col-md-12
+                ul.list-group
+                    li.list-group-item(ng-repeat="param in params")
+                        form.form-inline(name="formParam_{{param.index}}")
+                            .form-group
+                                input.form-control(ng-model="param.name", placeholder="Название параметра")
+                            .form-group
+                                input.form-control(ng-model="param.value", placeholder="Значение параметра", style="{width: 400px;}")
+                            .form-group
+                                button.btn.btn-danger(ng-click="removeHeaderParam(param)") Убрать

@@ -1,0 +1,12 @@
+
+.request_active {
+    border: 1px solid green;
+}
+
+.control-toolbar .btn {
+    margin-right: 10px;
+}
+
+.control-toolbar .btn:last-child {
+    margin-right: 0px;
+}

@@ -1,0 +1,92 @@
+.col-md-12(ng-controller="ApiTestsCtrl")
+    div(ng-include="'/partials/lib/modal.jade?controller=createTestCtrl&title=Добавление теста&content=/partials/createTestModal.jade'")
+    div(ng-include="'/partials/lib/modal.jade?controller=createTestBlockCtrl&title=Добавление тестового блока&content=/partials/createTestBlockModal.jade'")
+
+    //.container-fluid
+    //    .row
+    //        button.btn.btn-success(ng-click="testAlertPassed()")
+    //            Test alert passed
+    //        button.btn.btn-danger(ng-click="testAlertFailed()")
+    //            Test alert failed
+    .container-fluid
+        .row
+            .col-md-6
+                button.btn.btn-success(ng-click="runAll()")
+                    | Run All
+                button.btn.btn-danger(ng-click="abortAll()")
+                    | Abort All
+        .row
+            .col-md-6(ng-include="'partials/requestHeaders.jade'")
+        .row
+            .col-md-6
+                .well   
+                    nav.navbar-default.control-toolbar
+                        .btn.btn-success(ng-click="createTest()")
+                            i.glyphicon.glyphicon-plus
+                            | Test
+                        .btn.btn-danger(ng-click="removeTest()")
+                            i.glyphicon.glyphicon-minus
+                            | Test
+                        .btn.btn-primary(ng-click="addToBlock()")
+                            i.glyphicon.glyphicon-book
+                            | To Block
+                        .div.pull-right
+                            input.form-control(type="text", ng-model="selectedTestBlock.name")
+                        
+            .col-md-6
+                .well   
+                    nav.navbar-default.control-toolbar 
+                        .btn.btn-success(ng-click="createTestBlock()")
+                            i.glyphicon.glyphicon-plus
+                            | Block
+                        .btn.btn-danger(ng-click="removeBlock()")
+                            i.glyphicon.glyphicon-minus
+                            | Block    
+
+        .row
+            .col-md-6
+                .panel.panel-default
+                    .panel-heading
+                        Тесты
+                    .panel-body
+                        ul
+                            li.list-group-item.row(ng-repeat="test in tests")
+                                .test-row.col-md-6
+                                    {{test.name}}
+                                .test-row.col-md-4
+                                    {{test.expression}}
+                                .test-row.col-md-1
+                                    .btn.btn-info(ng-click="runTest(test)")
+                                        | Run
+                                .test-row.col-md-2
+                                    .btn.btn-primary(ng-click="showAssociationForm(test)", ng-hide="hasAssociation()")
+                                        | Associate Request
+                                    .btn.btn-warning(ng-click="test.removeRequestAssociation()", ng-show="hasAssociation()")
+                                        | Remove Association
+
+            .col-md-6
+                .panel.panel-default
+                    .panel-heading
+                        Тестовые блоки
+                    .panel-body
+                        ul
+                            li.list-group-item.row(ng-repeat="test_block in test_blocks")
+                                .test-row.col-md-10
+                                    {{test_block.name}}
+                                .test-row.col-md-2
+                                    .btn.btn-info(ng-click="runAllTest(test_block)")
+                                        | Run Tests
+        .row
+            .col-md-6
+                div(ui-view="association")
+        .row
+            .col-md-12(ng-include="'/partials/journalList.jade'")
+
+        .row(ng-show="hasTestsPassed")
+            .alert.alert-success
+                Tests completed: 
+                span {{testsPassed.length}}
+        .row(ng-show="hasTestsFailed")
+            .alert.alert-danger
+                Tests failed:
+                span {{testsFailed.length}}

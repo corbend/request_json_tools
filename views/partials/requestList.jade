@@ -1,0 +1,95 @@
+.col-md-12
+    .btn.btn-warning
+        a(ui-sref="new") Добавить запрос
+
+.col-md-12(ng-controller="RequestListCtrl")
+    .container-fluid
+        .row
+            .panel.panel-success
+                .panel-heading
+                    Параметры запроса
+                .panel-body.container-fluid
+                    .row
+                        .col-md-2
+                            .btn.btn-success(ng-click="addHeaderParam()")
+                                i.glyphicon.glyphicon-plus
+                        .col-md-2
+                            select(ng-model="predefineHeaderParam", ng-options="opt for opt in headerParams")
+                    .row
+                        .col-md-12
+                            ul.list-group
+                                li.list-group-item(ng-repeat="param in params")
+                                    form.form-inline(name="formParam_{{param.index}}")
+                                        .form-group
+                                            input.form-control(ng-model="param.name", placeholder="Название параметра")
+                                        .form-group
+                                            input.form-control(ng-model="param.value", placeholder="Значение параметра", style="{width: 400px;}")
+                                        .form-group
+                                            button.btn.btn-danger(ng-click="removeHeaderParam(param)") Убрать
+        .row
+            form.form-inline
+                .form-group
+                    label Повтор запросов
+                    input(ng-model="massRepeatTime")
+                .form-group
+                    .btn.btn-success(ng-click="massSendRequest()") Send Checked
+                    .btn.btn-danger(ng-show="isSelectedSendActive()", ng-click="massMuteRequest()") 
+                        span Mute Checked
+                .form-group
+                    select(ng-model="selectedGroup", ng-options="opt for opt in groups")
+                    .btn.btn-success(ng-click="selectGroup(selectedGroup)") Select Group
+                    .btn.btn-danger(ng-click="unselectAll()") Unselect All
+                    .btn.btn-danger(ng-click="removeSelected()") Remove Selected
+        .row(ng-include="'partials/list.jade'")
+        .row
+            .panel.panel-info
+                .panel-heading
+                    Журнал
+                .panel-body
+                    ul.list-group.container-fluid
+                        li.row.list-group-item(ng-repeat="record in journal")
+                            span.col-md-1
+                                input(type="checkbox", ng-model="record.selected", rc-select-one="journalRecordIsSelected")
+                            span.col-md-2 {{record.host}}
+                            span.col-md-2 {{record.url}}
+                            spam.col-md-2 {{record.counter}}
+                            span.col-md-2(ng-if="record.status >= 200 && record.status < 300")
+                                .label.label-success {{record.status}}
+                            span.col-md-2(ng-if="record.status >= 300 && record.status < 400")
+                                .label.label-info {{record.status}}
+                            span.col-md-2(ng-if="record.status >= 400 && record.status < 500")
+                                .label.label-warning {{record.status}}
+                            span.col-md-2(ng-if="record.status >= 500 && record.status < 600")
+                                .label.label-danger {{record.status}}
+                            span.col-md-2 {{request.lastSend}}
+                .panel-footer
+                    .btn.btn-warning(ng-click="clearJournal()")
+                        | Clear
+
+        .row
+            .container-fluid
+                .row
+                    .col-md-6(ng-show="lastRequest.data && !lastRequest.error")
+                        .panel.panel-success
+                            .panel-heading
+                                Ответ на запрос
+                            .panel-body
+                                pre(ng-if="isJSON(lastRequest.contentType)")
+                                    {{lastRequest.data}}
+                                div(ng-if="isHtml(lastRequest.contentType)")
+                                    {{lastRequest.data}}
+                    .col-md-6(ng-show="lastRequest.error")
+                        .panel.panel-danger
+                            .panel-heading
+                                Ошибка в ходе запроса
+                            .panel-body
+                                pre 
+                                    {{lastRequest.error}}
+                    .col-md-6(ng-show="selectedJournalRecord")
+                        .panel.panel-default
+                            {{selectedJournalRecord.lastError}}
+
+        
+            
+                
+

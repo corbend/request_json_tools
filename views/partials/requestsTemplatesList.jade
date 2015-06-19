@@ -1,0 +1,31 @@
+.container-fluid(ng-controller="RequestListCtrl as vm")
+    .row
+        .col-md-12
+            .panel.panel-info(ng-controller="TemplateLoaderCtrl as templateLoader")
+                .panel-heading
+                    Загрузка шаблона
+                .panel-body
+                    .container-fluid
+                        .row
+                            .col-md-6
+                                ui-select(ng-model="templateLoader.selectedTemplate", theme="bootstrap")
+                                    ui-select-match(placeholder="Поиск...")
+                                        {{$select.selected.name}}
+                                    ui-select-choices(repeat="item in templateLoader.templates | filter: $select.search")
+                                        div(ng-bind-html="item.name | highlight: $select.search")
+                                .btn.btn-success(ng-click="templateLoader.loadSelectedTemplate(templateLoader.selectedTemplate)")
+                                    | Load
+                                .btn.btn-danger(ng-click="templateLoader.removeSelectedTemplate(templateLoader.selectedTemplate)")
+                                    | Remove
+                                .btn.btn-warning(ng-click="templateLoader.createGenerator(templateLoader.selectedTemplate)")
+                                    | Edit
+                                    
+                            .col-md-6
+                                form.form-inline(name="createNewTemplate")
+                                    .form-group
+                                        label Название шаблона
+                                        input.form-control(ng-model="newTemplate.name")
+                                    .btn.btn-success(ng-click="templateLoader.createNewTemplate(newTemplate)")
+                                         | Save
+
+    .row(ng-include="'partials/templateRequestList.jade'")

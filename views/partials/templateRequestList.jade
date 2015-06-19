@@ -1,0 +1,34 @@
+.panel.panel-success
+    .panel-heading
+        Запросы
+    .panel-body
+        ul.list-group.container-fluid
+            li.row.list-group-item(ng-repeat="request in templateRequests | orderBy: 'group'", ng-class="{request_active: mute}")
+                span.col-xs-1
+                    input(ng-model="request.selected", type="checkbox")
+                span.col-md-1 {{request.name}}
+                span.col-md-1 {{request.host}}
+                span.col-md-1 {{request.port}}
+                span.col-md-2 {{request.url}}
+                span.col-md-1 {{request.method}}
+                span.col-md-1 {{request.group}}
+                .btn.btn-success(ng-click="unmuteAndSend(request)") Send
+                span.col-md-1
+                    input(ng-model="request.timeout")
+                    .btn.btn-success(ng-click="setRepeat(request)") Apply
+
+                span.col-md-1 {{request.lastSend}}
+                .btn.btn-info(ng-click="editRequest(request)") Edit
+                .btn.btn-danger(ng-click="removeRequest(request)") Remove
+                .btn.btn-primary(ng-click="duplicateRequest(request)") Copy
+                span.col-md-12.whell(ng-show="request.isIteratorPanelShow")
+                    form.form-inline
+                        .form-group
+                            label Кол-во итераций
+                            input.form-control(ng-model="request.loadIteratorCount") 
+                            label Начальное значение
+                            input.form-control(ng-model="request.iteratorStartValue")
+                        .form-group
+                            .btn.btn-danger(ng-click="hideIteratorPanel(request)") Закрыть
+                span.col-md-1(ng-hide="request.isIteratorPanelShow")
+                    .btn.btn-info(ng-click="showIteratorPanel(request)") Итератор

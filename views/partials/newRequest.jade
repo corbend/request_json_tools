@@ -1,0 +1,75 @@
+.col-md-12(ng-controller="NewRequestCtrl")
+    .panel.panel-success
+        .panel-heading
+            Создание нового запроса
+        .panel-body
+            form(name="newRequestForm", novalidate)
+                fieldset
+                    .form-group
+                        label(for="#name-field") Имя
+                        input.form-control(type="text", ng-invalid="error", id="name-field", name="name", ng-model="req.name", required)
+                    .form-group
+                        label(for="#host-field") Хост
+                        input.form-control(type="text", ng-invalid="error", ng-minlength="5", id="host-field", name="host", ng-model="req.host", required)
+                    .form-group
+                        label(for="#port-field") Порт
+                        input.form-control(type="text", ng-invalid="error", ng-minlength="4", id="port-field", name="port", ng-model="req.port", required)
+                    .form-group
+                        label(for="#url-field") Адрес
+                        input.form-control(type="text", ng-invalid="error", ng-minlength="3", id="url-field", name="url", ng-model="req.url", required)
+                    .form-group
+                        label(for="#batch-field") Количество 
+                        input.form-control(type="text", id="batch-field", name="batchNumber", ng-model="req.batchNumber")
+                    .form-group
+                        label(for="#method-field") Тип
+                        ui-select(id="method-field", ng-model="req.method", theme="bootstrap", required)
+                            ui-select-match(placeholder="Поиск...")
+                                {{$select.selected}}
+                            ui-select-choices(repeat="item in methods | filter: $select.search")
+                                //div(ng-bind-html="item | highlight: $select.search")
+                                {{item}}
+                    .form-group
+                        label(for="#group-field") Группа 
+                        input.form-control(type="text", id="group-field", name="group", ng-model="req.group")
+                    .form-group
+                        label(for="#template-field") Шаблон
+                        textarea.form-control(id="template-field", name="template", ng-model="req.template")
+                fieldset(ng-controller="FuncParamCtrl")
+                    .row
+                        .col-md-12
+                            
+                            .btn.btn-primary(ng-click="addFuncParam()")
+                                i.glyphicon.glyphicon-plus
+                                Функция-заполнитель
+                    .row
+                        .col-md-12
+                            ul.list-group
+                                li.list-group-item(ng-repeat="param in functionParams")
+                                    form.form-inline(name="formParam_{{param.index}}")
+                                        .form-group
+                                            input.form-control(ng-model="param.jsonParamName", placeholder="Название параметра")
+                                        .form-group
+                                            textarea.form-control(ng-model="param.funcBody", placeholder="Тело функции", style="{width: 400px;}")
+                                        .form-group
+                                            button.btn.btn-danger(ng-click="removeFuncParam(param)") Убрать
+                fieldset(ng-controller="IteratorParamCtrl")
+                    .row
+                        .col-md-12
+                            
+                            .btn.btn-primary(ng-click="addIterParam()")
+                                i.glyphicon.glyphicon-plus
+                                Функция-итератор
+                    .row
+                        .col-md-12
+                            ul.list-group
+                                li.list-group-item(ng-repeat="param in iterParams")
+                                    form.form-inline(name="formIterParam_{{param.index}}")
+                                        .form-group
+                                            input.form-control(ng-model="param.jsonParamName", placeholder="Название параметра")
+                                        .form-group
+                                            textarea.form-control(ng-model="param.funcBody", placeholder="Тело функции", style="{width: 400px;}")
+                                        .form-group
+                                            button.btn.btn-danger(ng-click="removeIterParam(param)") Убрать
+        .panel-footer
+            .btn.btn-warning(ng-click="saveNew()") Save
+            .btn.btn-primary(ng-click="cancelNew()") Cancel
